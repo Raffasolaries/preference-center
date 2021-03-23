@@ -1,6 +1,5 @@
 import { IsEmail, IsNotEmpty, IsString, IsDefined, IsArray, ValidateNested, IsOptional, IsEnum, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
-import { CreateEventDto } from '../../events/dto/create-event.dto';
 
 enum ConsentType {
  email_notification = 'email_notification',
