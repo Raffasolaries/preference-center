@@ -5,19 +5,12 @@ export enum ConsentType {
  sms_notifications = 'sms_notifications'
 }
 
-@Entity()
-export class Consent {
- @PrimaryGeneratedColumn()
- consentId: number;
-
+export abstract class Consent {
  @Column({ type: 'enum', enum: ConsentType })
  id: ConsentType;
 
  @Column({ type: 'bool', default: false })
  enabled: boolean;
-
- @ManyToOne(() => User, user => user.id)
- user: User;
 }
 
 @Entity()
@@ -28,8 +21,6 @@ export class User {
  @Column({ type: 'varchar', length: 200 })
  email: string;
  
- @OneToMany(type => Consent, consent => consent.user, {
-     eager: true
- })
+ @Column('jsonb', { nullable: true })
  consents: Consent[]
 }

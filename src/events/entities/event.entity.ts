@@ -8,8 +8,4 @@ export class Event {
 
  @ManyToOne(() => User, user => user.id)
  user: User;
-
- @ManyToMany(() => User, user => user.consents)
- @JoinTable()
- consents: Consent[]
 }
