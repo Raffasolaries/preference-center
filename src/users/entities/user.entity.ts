@@ -13,7 +13,7 @@ export abstract class Consent {
  enabled: boolean;
 }
 
-@Entity()
+@Entity({ name: 'users' })
 export class User {
  @PrimaryGeneratedColumn('uuid')
  id: string;
