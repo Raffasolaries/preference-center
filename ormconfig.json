@@ -6,7 +6,7 @@
   "password": "didomi2021",
   "database": "preference_center_db",
   "entities": [
-    "**/*.entity{.ts,.js}"
+    "dist/**/*.entity.js"
   ],
   "migrationsTableName": "migration",
   "migrations": [

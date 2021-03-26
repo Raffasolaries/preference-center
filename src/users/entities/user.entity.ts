@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, ManyToMany, JoinTable, PrimaryColumn, ManyToOne, OneToMany } from 'typeorm';
+import { BaseEntity } from './base.entity';
 
 export enum ConsentType {
  email_notifications = 'email_notifications',
@@ -14,7 +15,7 @@ export abstract class Consent {
 }
 
 @Entity({ name: 'users' })
-export class User {
+export class User extends BaseEntity {
  @PrimaryGeneratedColumn('uuid')
  id: string;
 
