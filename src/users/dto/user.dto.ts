@@ -1,7 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString, IsDefined, IsArray, ValidateNested, IsOptional, IsEnum, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
-import { User, ConsentType } from '../entities/user.entity';
+import { ConsentType, User } from '../entities/user.entity';
+// mport { User } from '../decorators/user.decorator';
 
 class Consent {
  @IsDefined()
@@ -44,13 +45,13 @@ export class UserDTO implements Readonly<UserDTO> {
   });
  }
 
- public toEntity(user: User = null) {
+ public toEntity() {
   const usr = new User();
   usr.email = this.email;
   usr.consents = this.consents;
   usr.createDateTime = new Date();
-  usr.createdBy = user ? user.id : null;
-  usr.lastChangedBy = user ? user.id : null;
+  usr.createdBy = usr.id;
+  usr.lastChangedBy = usr.id;
   return usr;
  }
 }
