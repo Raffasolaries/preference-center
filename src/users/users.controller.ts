@@ -21,8 +21,8 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  async findOne(@Param('id') id: string): Promise<UserDTO[]> {
+   return await this.usersService.findOne(id)[0];
   }
 
   // @Patch(':id')
@@ -30,8 +30,8 @@ export class UsersController {
   //   return this.usersService.update(+id, updateUserDto);
   // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-   return this.usersService.remove(+id);
-  }
+  // @Delete(':id')
+  // async remove(@Param('id') id: string): Promise<UserDTO> {
+  //  return this.usersService.remove(id);
+  // }
 }

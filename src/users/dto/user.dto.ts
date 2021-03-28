@@ -5,7 +5,7 @@ import { Type } from 'class-transformer';
 import { ConsentType, User } from '../entities/user.entity';
 // mport { User } from '../decorators/user.decorator';
 
-class Consent {
+export class Consent {
  @IsDefined()
  @IsEnum(ConsentType)
 	id: ConsentType;
