@@ -26,16 +26,16 @@ export class UsersService {
    // return `This action returns all users`;
  }
 
- public async findOne(id: string): Promise<UserDTO[]>  {
+ public async findOne(id: string): Promise<UserDTO>  {
   return await this.repo.find({ where: { id: id }})
-   .then(users => users.map(e => UserDTO.fromEntity(e)));
+   .then(users => users.map(e => UserDTO.fromEntity(e))[0]);
  }
 
  // update(id: number, updateUserDto: UpdateUserDto) {
  //   return `This action updates a #${id} user`;
  // }
 
- // public async remove(id: string) {
- //  return this.repo.remove()
- // }
+ public async remove(id: string) {
+  return await this.repo.delete(id);
+ }
 }
