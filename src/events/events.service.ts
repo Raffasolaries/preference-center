@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-// import { CreateEventDto } from './dto/create-event.dto';
+import { EventDTO } from './dto/event.dto';
 // import { UpdateEventDto } from './dto/update-event.dto';
 import { User } from '../users/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -24,9 +24,9 @@ export class EventsService {
   //   return `This action returns a #${id} event`;
   // }
 
-  // update(id: number, updateEventDto: UpdateEventDto) {
-  //   return `This action updates a #${id} event`;
-  // }
+  public async update(dto: EventDTO) {
+   return await this.repo.update(dto.user.id, { consents: [...dto.consents] });
+  }
 
   // remove(id: number) {
   //   return `This action removes a #${id} event`;

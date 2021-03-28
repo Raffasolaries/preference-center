@@ -6,10 +6,10 @@ import { EventDTO } from './dto/event.dto';
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
-  // @Post()
-  // create(@Body() createEventDto: CreateEventDto) {
-  //   return this.eventsService.create(createEventDto);
-  // }
+  @Post()
+  async update(@Body() dto: EventDTO) {
+    return await this.eventsService.update(dto);
+  }
 
   // @Get()
   // findAll() {
