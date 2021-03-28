@@ -23,5 +23,5 @@ export class User extends BaseEntity {
  email: string;
  
  @Column('jsonb', { nullable: true })
- consents: Consent[]
+ consents?: Consent[]
 }
