@@ -15,8 +15,8 @@ export class UsersController {
   }
 
   @Get()
-  async findAll() {
-   return this.usersService.findAll();
+  async findAll(): Promise<UserDTO[]> {
+   return await this.usersService.findAll();
   }
 
   @Get(':id')
