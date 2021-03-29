@@ -14,7 +14,7 @@ export abstract class Consent {
  enabled: boolean;
 }
 
-@Entity({ name: 'users' })
+@Entity()
 export class User extends BaseEntity {
  @PrimaryGeneratedColumn('uuid')
  id: string;
