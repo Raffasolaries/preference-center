@@ -53,7 +53,7 @@ export class UserDTO implements Readonly<UserDTO> {
   const usr = new User();
   usr.id = uuidv4();
   usr.email = dto.email;
-  usr.consents = dto.consents;
+  usr.consents = dto.consents ? dto.consents : [];
   usr.createDateTime = new Date();
   usr.createdBy = usr.id ? usr.id : null;
   usr.lastChangedBy = usr.id ? usr.id : null;
