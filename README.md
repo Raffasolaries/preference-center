@@ -54,7 +54,7 @@ RUN_MIGRATIONS=true' >> .env
 $ npm run start:dev:db
 
 # Generate TypeORM migration
-$ npm run typeorm:migration:generate -- <my_init>
+$ npm run typeorm:migration:generate -- my_init
 
 # Run TypeORM migration
 $ npm run typeorm:migration:run
@@ -97,8 +97,8 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## Stay in touch
 
 - Author - [Raffaele Sollecito](https://github.com/Raffasolaries)
-- LinkedIn - [Raffasolaries](https://www.linkedin.com/in/raffasolaries/)
-- Twitter - [@nestframework](https://twitter.com/Raffasolaries)
+- LinkedIn - [@Raffasolaries](https://www.linkedin.com/in/raffasolaries/)
+- Twitter - [@Raffasolaries](https://twitter.com/Raffasolaries)
 
 ## License
 
