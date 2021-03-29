@@ -11,9 +11,9 @@ export class UsersService {
  constructor(@InjectRepository(User) private readonly repo: Repository<User>) {}
  
  public async create(dto: UserDTO): Promise<UserDTO> {
-  console.log('dto passed into user service', dto);
+  // console.log('dto passed into user service', dto);
   const entity = UserDTO.toEntity(dto);
-  console.log('dto entity service', entity);
+  // console.log('dto entity service', entity);
   return this.repo.save(entity)
    .then(e => UserDTO.fromEntity(e));
  }

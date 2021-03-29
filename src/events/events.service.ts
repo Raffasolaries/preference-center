@@ -26,7 +26,7 @@ export class EventsService {
 
   public async update(dto: EventDTO) {
    const found = await this.repo.find({ where: { id: dto.user.id }});
-   console.log('found user', found);
+   // console.log('found user', found);
    const foundConsents = [];
    let foundEmailNotificationsConsent = found[0].consents && found[0].consents.length > 0 ? found[0].consents.filter(consent => consent.id === 'email_notifications') : [];
    let foundSmsNotificationsConsent = found[0].consents && found[0].consents.length > 0 ? found[0].consents.filter(consent => consent.id === 'sms_notifications') : [];
@@ -51,7 +51,7 @@ export class EventsService {
    if (foundSmsNotificationsConsent.length === 0 && newSmsNotificationsConsent.length > 0) {
     newConsents.push(newSmsNotificationsConsent[0]);
    }
-   console.log('newConsents', newConsents);
+   // console.log('newConsents', newConsents);
    return await this.repo.update(dto.user.id, { consents: newConsents });
   }
 

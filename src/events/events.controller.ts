@@ -8,7 +8,7 @@ export class EventsController {
 
   @Post()
   async update(@Body() dto: EventDTO) {
-    return await this.eventsService.update(dto);
+   return await this.eventsService.update(dto);
   }
 
   // @Get()
