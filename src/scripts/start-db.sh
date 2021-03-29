@@ -1,9 +1,15 @@
 #!/bin/bash
-set -e
+set -o allexport
+[[ -f .env ]] && source .env
+set +o allexport
 
-SERVER="preference_center_server_db";
-PW="didomi2021";
-DB="preference_center_db";
+set -e
+# SERVER="preference_center_server_db";
+# PW="didomi2021";
+# DB="preference_center_db";
+SERVER=$POSTGRES_SERVER;
+PW=$POSTGRES_PASSWORD;
+DB=$POSTGRES_DATABASE;
 
 echo "echo stop & remove old docker [$SERVER] and starting new fresh instance of [$SERVER]"
 (docker kill $SERVER || :) && \

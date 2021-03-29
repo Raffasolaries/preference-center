@@ -5,7 +5,7 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+  <p align="center">This project is made with <a href="https://github.com/nestjs/nest" target="_blank">Nest.js</a> , a progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
     <p align="center">
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
@@ -24,21 +24,46 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Preference Center REST APIs example with PostgreSQL database [TypeORM](https://typeorm.io) integration
+
+## Prerequisities
+[Docker](https://docs.docker.com/get-docker/)\
+[Node.js](http://nodejs.org)\
+[Nest.js](https://docs.nestjs.com)
 
 ## Installation
 
+### In the project root ...
+
 ```bash
+# Install node.js packages
 $ npm install
+
+# Create .env file
+echo 'POSTGRES_SERVER=preference_center_server_db
+POSTGRES_HOST=127.0.0.1
+POSTGRES_PORT=5432
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=didomi2021
+POSTGRES_DATABASE=preference_center_db
+PORT=3000
+MODE=DEV
+RUN_MIGRATIONS=true' >> .env
+
+# Running Docker PostgreSQL image
+$ npm run start:dev:db
+
+# Generate TypeORM migration
+$ npm run typeorm:migration:generate -- <my_init>
+
+# Run TypeORM migration
+$ npm run typeorm:migration:run
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
-
-# watch mode
 $ npm run start:dev
 
 # production mode
@@ -58,15 +83,22 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Swagger docs
+
+... after the application is running (not in production)
+N.B. here there's the local address
+
+[Swagger.docs](http://localhost:3000/docs)
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [Raffaele Sollecito](https://github.com/Raffasolaries)
+- LinkedIn - [Raffasolaries](https://www.linkedin.com/in/raffasolaries/)
+- Twitter - [@nestframework](https://twitter.com/Raffasolaries)
 
 ## License
 
