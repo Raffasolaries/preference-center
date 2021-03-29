@@ -97,8 +97,8 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## Stay in touch
 
 - Author - [Raffaele Sollecito](https://github.com/Raffasolaries)
-- LinkedIn - [@Raffasolaries](https://www.linkedin.com/in/raffasolaries/)
-- Twitter - [@Raffasolaries](https://twitter.com/Raffasolaries)
+- LinkedIn - [Raffaele Sollecito](https://www.linkedin.com/in/raffasolaries/)
+- Twitter - [Raffaele Sollecito](https://twitter.com/Raffasolaries)
 
 ## License
 
