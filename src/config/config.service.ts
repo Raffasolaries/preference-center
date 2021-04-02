@@ -52,6 +52,7 @@ class ConfigService {
       },
 
       ssl: this.isProduction(),
+      synchronize: true
     };
   }
 

@@ -30,6 +30,7 @@ export class EventsService {
    let updates = {};
    if (found.length === 0) {
     const entities = EventDTO.toEntity(dto);
+    console.log('entities built', entities);
     for (let entity of entities) {
      updates = await this.repo.save(entity).then(e => EventDTO.fromEntity(e));
      console.log(updates);

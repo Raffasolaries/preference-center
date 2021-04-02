@@ -4,9 +4,6 @@ import { Consent } from '../../events/entities/event.entity';
 
 @Entity('users')
 export class User extends BaseEntity {
- @PrimaryGeneratedColumn('uuid')
- id: string;
-
  @Column({ type: 'varchar', length: 200 })
  email: string;
  

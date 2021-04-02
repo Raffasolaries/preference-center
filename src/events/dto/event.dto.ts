@@ -35,7 +35,7 @@ export class EventDTO {
   for (let consent of dto.consents) {
    if (consent['enabled']) {
     cons = new Consent();
-    cons.id =  consent.id;
+    cons.name =  consent.id;
     cons.user = dto.user.id;
     cons.createDateTime = new Date();
     cons.createdBy = dto.user.id ? dto.user.id : null;
