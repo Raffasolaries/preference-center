@@ -14,7 +14,7 @@ export class UsersService {
   // console.log('dto passed into user service', dto);
   const entity = UserDTO.toEntity(dto);
   // console.log('dto entity service', entity);
-  return this.repo.save(entity)
+  return await this.repo.save(entity)
    .then(e => UserDTO.fromEntity(e));
  }
 

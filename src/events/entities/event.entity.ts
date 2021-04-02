@@ -9,6 +9,9 @@ export enum ConsentType {
 
 @Entity('consents')
 export class Consent extends BaseEntity {
+ @PrimaryGeneratedColumn('uuid')
+ uuid: string;
+
  @Column({ type: 'enum', enum: ConsentType })
  id: ConsentType;
 

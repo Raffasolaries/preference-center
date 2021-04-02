@@ -29,13 +29,20 @@ export class EventDTO {
   });
  }
 
- // public static toEntity(dto: Partial<EventDTO>) {
- //  const usr = new User();
- //  usr.email = dto.email;
- //  usr.consents = dto.consents;
- //  usr.createDateTime = new Date();
- //  usr.createdBy = usr.id ? usr.id : null;
- //  usr.lastChangedBy = usr.id ? usr.id : null;
- //  return usr;
- // }
+ public static toEntity(dto: Partial<EventDTO>) {
+  const consents = [];
+  let cons;
+  for (let consent of dto.consents) {
+   if (consent['enabled']) {
+    cons = new Consent();
+    cons.id =  consent.id;
+    cons.user = dto.user.id;
+    cons.createDateTime = new Date();
+    cons.createdBy = dto.user.id ? dto.user.id : null;
+    cons.lastChangedBy = dto.user.id ? dto.user.id : null;
+    consents.push(cons);
+   }
+  }
+  return consents;
+ }
 }

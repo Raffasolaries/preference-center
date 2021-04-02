@@ -1,5 +1,5 @@
 import { SetMetadata, createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { ConsentType } from '../entities/user.entity';
+import { ConsentType } from '../../events/entities/event.entity';
 
 interface Consent {
  id: ConsentType;

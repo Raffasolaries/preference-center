@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventsService } from './events.service';
 import { EventsController } from './events.controller';
-import { User } from '../users/entities/user.entity';
+import { Consent } from '../events/entities/event.entity';
 
 @Module({
- imports: [TypeOrmModule.forFeature([User])],
+ imports: [TypeOrmModule.forFeature([Consent])],
  controllers: [EventsController],
  providers: [EventsService]
 })
