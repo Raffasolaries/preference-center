@@ -9,7 +9,7 @@ export enum ConsentType {
 
 @Entity('consents')
 export class Consent extends BaseEntity {
- @Column({ type: 'enum', enum: ConsentType })
+ @Column({ type: 'enum', enum: ConsentType, nullable: true })
  name: ConsentType;
 
  @ManyToOne(() => User, user => user.consents)
