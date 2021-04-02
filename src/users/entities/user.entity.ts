@@ -1,18 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, ManyToMany, JoinTable, PrimaryColumn, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
-
-export enum ConsentType {
- email_notifications = 'email_notifications',
- sms_notifications = 'sms_notifications'
-}
-
-export abstract class Consent {
- @Column({ type: 'enum', enum: ConsentType })
- id: ConsentType;
-
- @Column({ type: 'bool', default: false })
- enabled: boolean;
-}
+import { Consent } from '../../events/entities/event.entity';
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -22,6 +10,7 @@ export class User extends BaseEntity {
  @Column({ type: 'varchar', length: 200 })
  email: string;
  
- @Column('jsonb', { nullable: true })
+ // @Column('jsonb', { nullable: true })
+ @OneToMany(() => Consent, consent => consent.user)
  consents?: Consent[]
 }

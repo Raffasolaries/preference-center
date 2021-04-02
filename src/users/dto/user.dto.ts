@@ -2,18 +2,9 @@ import { ApiProperty } from '@nestjs/swagger';
 import { v4 as uuidv4 } from 'uuid';
 import { IsEmail, IsNotEmpty, IsString, IsDefined, IsArray, ValidateNested, IsOptional, IsEnum, IsBoolean, IsUUID } from 'class-validator';
 import { Type } from 'class-transformer';
-import { ConsentType, User } from '../entities/user.entity';
+import { User } from '../entities/user.entity';
+import { Consent } from '../../events/entities/event.entity';
 // mport { User } from '../decorators/user.decorator';
-
-export class Consent {
- @IsDefined()
- @IsEnum(ConsentType)
-	id: ConsentType;
-
- @IsDefined()
- @IsBoolean()
- enabled: boolean;
-}
 
 export class UserDTO implements Readonly<UserDTO> {
  @ApiProperty({ required: false })

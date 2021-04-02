@@ -20,6 +20,6 @@ describe('AppController (e2e)', () => {
     .get('/users').then(result => {
      expect(result.status).toEqual(200)
      expect(result.body).toBeDefined()
-    })
+    });
   });
 });

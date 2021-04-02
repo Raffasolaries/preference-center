@@ -1,7 +1,7 @@
 import { IsEmail, IsNotEmpty, IsString, IsDefined, IsArray, ValidateNested, IsOptional, IsEnum, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
-import { Event } from '../entities/event.entity';
-import { Consent, UserDTO } from '../../users/dto/user.dto';
+import { Consent } from '../entities/event.entity';
+import { UserDTO } from '../../users/dto/user.dto';
 import { User } from '../../users/entities/user.entity';
 
 export class EventDTO {
@@ -22,9 +22,9 @@ export class EventDTO {
   return event;
  }
 
- public static fromEntity(entity: Event) {
+ public static fromEntity(entity: User) {
   return this.from({
-   user: entity.user,
+   user: entity,
    consents: entity.consents ? entity.consents : []
   });
  }
