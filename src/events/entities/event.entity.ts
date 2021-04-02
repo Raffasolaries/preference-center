@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, ManyToMany, ManyToOne, JoinTable, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, ManyToMany, ManyToOne, JoinTable, OneToMany, JoinColumn } from 'typeorm';
 import { BaseEntity } from '../../users/entities/base.entity';
 import { User } from '../../users/entities/user.entity';
 
@@ -13,6 +13,7 @@ export class Consent extends BaseEntity {
  name: ConsentType;
 
  @ManyToOne(() => User, user => user.consents)
+ @JoinColumn({ name: "user" })
  user: User;
 }
 

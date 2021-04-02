@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, ManyToMany, JoinTable, PrimaryColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, ManyToMany, JoinTable, PrimaryColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Consent } from '../../events/entities/event.entity';
 
@@ -9,5 +9,6 @@ export class User extends BaseEntity {
  
  // @Column('jsonb', { nullable: true })
  @OneToMany(() => Consent, consent => consent.user)
+ @JoinColumn({ name: "consents" })
  consents?: Consent[]
 }
