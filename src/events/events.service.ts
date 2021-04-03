@@ -1,13 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EventDTO } from './dto/event.dto';
+// import { UserDTO } from '../users/dto/user.dto';
 // import { UpdateEventDto } from './dto/update-event.dto';
+import { User } from '../users/entities/user.entity';
 import { Consent } from '../events/entities/event.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class EventsService {
- constructor(@InjectRepository(Consent) private readonly repo: Repository<Consent>) {}
+ constructor(
+  @InjectRepository(Consent) private readonly consentsRepo: Repository<Consent>,
+  @InjectRepository(User) private readonly usersRepo: Repository<User>
+ ) {}
 
   // public async findAll() {
   //   return await this.repo.find();
@@ -25,16 +30,29 @@ export class EventsService {
   // }
 
   public async update(dto: EventDTO) {
-   const found = await this.repo.find({ where: { user: dto.user.id }});
-   console.log('found user', found, 'event dto', dto);
+   console.log('starting find it');
+   const user = await this.usersRepo.find({ where: { id: dto.user.id }});
+   if (user.length === 0) {
+    throw new BadRequestException('Invalid user');
+   }
+   const found = await this.consentsRepo.find({ where: { userId: dto.user.id }, relations: ["user"] });
+   console.log('data', {
+    foundConsents: found,
+    user: user,
+    dto: dto
+   });
+   return found;
    let updates = {};
    if (found.length === 0) {
     const entities = EventDTO.toEntity(dto);
     console.log('entities built', entities);
     for (let entity of entities) {
-     updates = await this.repo.save(entity).then(e => EventDTO.fromEntity(e));
+     updates = await this.consentsRepo.save(entity);
      console.log(updates);
     }
+    return updates;
+   } else { 
+    // you can't have the same on same user
    }
    
    return;

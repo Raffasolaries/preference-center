@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString, IsDefined, IsArray, ValidateNested, IsOptional, IsEnum, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
-import { Consent } from '../entities/event.entity';
+import { Consent, SimplifiedConsent } from '../entities/event.entity';
 import { UserDTO } from '../../users/dto/user.dto';
 import { User } from '../../users/entities/user.entity';
 
@@ -11,9 +11,9 @@ export class EventDTO {
  user: UserDTO;
 
  @ValidateNested({ each: true })
-	@Type(() => Consent)
+	@Type(() => SimplifiedConsent)
 	@IsOptional()
- consents: Consent[];
+ consents: SimplifiedConsent[];
 
  public static from(dto: Partial<EventDTO>) {
   const event = new EventDTO();
@@ -22,12 +22,12 @@ export class EventDTO {
   return event;
  }
 
- public static fromEntity(entity: User) {
-  return this.from({
-   user: entity,
-   consents: entity.consents ? entity.consents : []
-  });
- }
+ // public static fromEntity(entity: Consent) {
+ //  return this.from({
+ //   user: entity.user,
+ //   consents: entity.consents ? entity.consents : []
+ //  });
+ // }
 
  public static toEntity(dto: Partial<EventDTO>) {
   const consents = [];

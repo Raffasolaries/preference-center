@@ -13,19 +13,19 @@ export class UsersService {
  public async create(dto: UserDTO): Promise<UserDTO> {
   // console.log('dto passed into user service', dto);
   const entity = UserDTO.toEntity(dto);
-  // console.log('dto entity service', entity);
+  console.log('dto entity service', entity);
   return await this.repo.save(entity)
    .then(e => UserDTO.fromEntity(e));
  }
 
  public async findAll(): Promise<UserDTO[]> {
-  return await this.repo.find()
+  return await this.repo.find({ relations: ["consents"] })
    .then(users => users.map(e => UserDTO.fromEntity(e)));
    // return `This action returns all users`;
  }
 
  public async findOne(id: string): Promise<UserDTO>  {
-  return await this.repo.find({ where: { id: id }})
+  return await this.repo.find({ where: { id: id }, relations: ["consents"] })
    .then(users => users.map(e => UserDTO.fromEntity(e))[0]);
  }
 

@@ -7,13 +7,18 @@ export enum ConsentType {
  sms_notifications = 'sms_notifications'
 }
 
+export abstract class SimplifiedConsent {
+ id: ConsentType;
+ enabled: boolean;
+}
+
 @Entity('consents')
 export class Consent extends BaseEntity {
  @Column({ type: 'enum', enum: ConsentType, nullable: true })
  name: ConsentType;
 
  @ManyToOne(() => User, user => user.consents)
- @JoinColumn({ name: "user" })
+ @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
  user: User;
 }
 

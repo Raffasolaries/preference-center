@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, ManyToMany, JoinTable, PrimaryColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, ManyToMany, JoinTable, PrimaryColumn, ManyToOne, OneToMany, JoinColumn, Unique } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Consent } from '../../events/entities/event.entity';
 
+@Unique(['email'])
 @Entity('users')
 export class User extends BaseEntity {
  @Column({ type: 'varchar', length: 200 })
@@ -9,6 +10,5 @@ export class User extends BaseEntity {
  
  // @Column('jsonb', { nullable: true })
  @OneToMany(() => Consent, consent => consent.user)
- @JoinColumn({ name: "consents" })
  consents?: Consent[]
 }
