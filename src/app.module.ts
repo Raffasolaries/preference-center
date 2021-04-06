@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ErrorsInterceptor } from './errors.interceptor';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -13,6 +15,12 @@ import { configService } from './config/config.service';
    TypeOrmModule.forRoot(configService.getTypeOrmConfig())
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+   AppService,
+   {
+     provide: APP_INTERCEPTOR,
+     useClass: ErrorsInterceptor,
+   }
+  ],
 })
 export class AppModule {}

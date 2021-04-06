@@ -35,20 +35,9 @@ export class EventsService {
    if (user.length === 0) {
     throw new BadRequestException('Invalid user');
    }
-   // const found = await this.consentsRepo.find({ where: { userId: dto.user.id }, relations: ["user"] });
-   // console.log('data', {
-   //  foundConsents: found,
-   //  user: user,
-   //  dto: dto
-   // });
-   const updates = [];
    const entities = EventDTO.toEntity(dto);
    console.log('entities built', entities);
-   for (let entity of entities) {
-    updates.push(await this.consentsRepo.save(entity));
-    console.log(updates);
-   }
-   return updates;
+   return await this.consentsRepo.save(entities);
   }
 
   // remove(id: number) {
