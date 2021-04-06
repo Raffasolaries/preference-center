@@ -35,53 +35,20 @@ export class EventsService {
    if (user.length === 0) {
     throw new BadRequestException('Invalid user');
    }
-   const found = await this.consentsRepo.find({ where: { userId: dto.user.id }, relations: ["user"] });
-   console.log('data', {
-    foundConsents: found,
-    user: user,
-    dto: dto
-   });
-   return found;
-   let updates = {};
-   if (found.length === 0) {
-    const entities = EventDTO.toEntity(dto);
-    console.log('entities built', entities);
-    for (let entity of entities) {
-     updates = await this.consentsRepo.save(entity);
-     console.log(updates);
-    }
-    return updates;
-   } else { 
-    // you can't have the same on same user
+   // const found = await this.consentsRepo.find({ where: { userId: dto.user.id }, relations: ["user"] });
+   // console.log('data', {
+   //  foundConsents: found,
+   //  user: user,
+   //  dto: dto
+   // });
+   const updates = [];
+   const entities = EventDTO.toEntity(dto);
+   console.log('entities built', entities);
+   for (let entity of entities) {
+    updates.push(await this.consentsRepo.save(entity));
+    console.log(updates);
    }
-   
-   return;
-   // const foundConsents = [];
-   // let foundEmailNotificationsConsent = found[0].consents && found[0].consents.length > 0 ? found[0].consents.filter(consent => consent.id === 'email_notifications') : [];
-   // let foundSmsNotificationsConsent = found[0].consents && found[0].consents.length > 0 ? found[0].consents.filter(consent => consent.id === 'sms_notifications') : [];
-   // let newEmailNotificationsConsent = dto.consents && dto.consents.length > 0 ? dto.consents.filter(consent => consent.id === 'email_notifications') : [];
-   // let newSmsNotificationsConsent = dto.consents && dto.consents.length > 0 ? dto.consents.filter(consent => consent.id === 'sms_notifications') : [];
-   // const newConsents = [];
-   // if (foundEmailNotificationsConsent.length > 0 && newEmailNotificationsConsent.length > 0) {
-   //  newConsents.push(newEmailNotificationsConsent[0]);
-   // }
-   // if (foundEmailNotificationsConsent.length > 0 && newEmailNotificationsConsent.length === 0) {
-   //  newConsents.push(foundEmailNotificationsConsent[0]);
-   // } 
-   // if (foundSmsNotificationsConsent.length > 0 && newSmsNotificationsConsent.length > 0) {
-   //  newConsents.push(newSmsNotificationsConsent[0]);
-   // } 
-   // if (foundSmsNotificationsConsent.length > 0 && newSmsNotificationsConsent.length === 0) {
-   //  newConsents.push(foundSmsNotificationsConsent[0]);
-   // }
-   // if (foundEmailNotificationsConsent.length === 0 && newEmailNotificationsConsent.length > 0) {
-   //  newConsents.push(newEmailNotificationsConsent[0]);
-   // }
-   // if (foundSmsNotificationsConsent.length === 0 && newSmsNotificationsConsent.length > 0) {
-   //  newConsents.push(newSmsNotificationsConsent[0]);
-   // }
-   // // console.log('newConsents', newConsents);
-   // return await this.repo.update(dto.user.id, { consents: newConsents });
+   return updates;
   }
 
   // remove(id: number) {

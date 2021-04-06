@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, ManyToMany, ManyToOne, JoinTable, OneToMany, JoinColumn } from 'typeorm';
-import { BaseEntity } from '../../users/entities/base.entity';
+import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, ManyToMany, ManyToOne, JoinTable, OneToMany, JoinColumn } from 'typeorm';
+import { BaseEntity } from './base.entity';
 import { User } from '../../users/entities/user.entity';
 
 export enum ConsentType {
@@ -14,12 +14,15 @@ export abstract class SimplifiedConsent {
 
 @Entity('consents')
 export class Consent extends BaseEntity {
- @Column({ type: 'enum', enum: ConsentType, nullable: true })
+ @PrimaryColumn({ type: 'enum', enum: ConsentType })
  name: ConsentType;
+
+ @PrimaryColumn()
+ userId: string;
 
  @ManyToOne(() => User, user => user.consents)
  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
- user: User;
+ user!: User;
 }
 
 // @Entity('events')

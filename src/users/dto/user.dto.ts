@@ -49,7 +49,8 @@ export class UserDTO implements Readonly<UserDTO> {
   usr.consents = dto.consents ? dto.consents.map(consent => {
    let cons = new Consent();
    cons.name =  consent.id;
-   cons.user = newUserId;
+   cons.userId = newUserId;
+   cons.isActive = consent.enabled;
    cons.createDateTime = new Date();
    cons.createdBy = newUserId;
    cons.lastChangedBy = newUserId;

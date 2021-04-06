@@ -33,15 +33,14 @@ export class EventDTO {
   const consents = [];
   let cons;
   for (let consent of dto.consents) {
-   if (consent['enabled']) {
-    cons = new Consent();
-    cons.name =  consent.id;
-    cons.user = dto.user.id;
-    cons.createDateTime = new Date();
-    cons.createdBy = dto.user.id ? dto.user.id : null;
-    cons.lastChangedBy = dto.user.id ? dto.user.id : null;
-    consents.push(cons);
-   }
+   cons = new Consent();
+   cons.name =  consent.id;
+   cons.userId = dto.user.id;
+   cons.isActive = consent.enabled;
+   cons.createDateTime = new Date();
+   cons.createdBy = dto.user.id ? dto.user.id : null;
+   cons.lastChangedBy = dto.user.id ? dto.user.id : null;
+   consents.push(cons);
   }
   return consents;
  }
