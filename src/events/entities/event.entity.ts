@@ -20,7 +20,7 @@ export class Consent extends BaseEntity {
  @PrimaryColumn()
  userId: string;
 
- @ManyToOne(() => User, user => user.consents)
+ @ManyToOne(() => User, user => user.consents, { onDelete: 'CASCADE' })
  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
  user!: User;
 }

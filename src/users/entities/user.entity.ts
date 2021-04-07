@@ -9,6 +9,6 @@ export class User extends BaseEntity {
  email: string;
  
  // @Column('jsonb', { nullable: true })
- @OneToMany(() => Consent, consent => consent.user)
+ @OneToMany(() => Consent, consent => consent.user, { cascade: true })
  consents?: Consent[]
 }
