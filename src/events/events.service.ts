@@ -30,13 +30,13 @@ export class EventsService {
   // }
 
   public async update(dto: EventDTO) {
-   console.log('starting find it');
+   // console.log('starting find it');
    const user = await this.usersRepo.find({ where: { id: dto.user.id }});
    if (user.length === 0) {
     throw new BadRequestException('Invalid user');
    }
    const entities = EventDTO.toEntity(dto);
-   console.log('entities built', entities);
+   // console.log('entities built', entities);
    return await this.consentsRepo.save(entities);
   }
 
