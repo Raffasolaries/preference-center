@@ -17,7 +17,7 @@ export class UsersService {
  public async create(dto: UserDTO): Promise<UserDTO> {
   // console.log('dto passed into user service', dto);
   const entity = UserDTO.toEntity(dto);
-  console.log('dto entity service', entity);
+  // console.log('dto entity service', entity);
   return await this.usersRepo.save(entity).then(e => UserDTO.fromEntity(e));
  }
 

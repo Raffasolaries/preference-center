@@ -4,6 +4,7 @@ import { UsersController } from './users.controller';
 import { configService } from '../config/config.service';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
+import { Consent } from '../events/entities/event.entity';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -12,7 +13,7 @@ describe('UsersController', () => {
     const module: TestingModule = await Test.createTestingModule({
      imports: [
       TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
-      TypeOrmModule.forFeature([User])
+      TypeOrmModule.forFeature([User, Consent])
      ],
      controllers: [UsersController],
      providers: [UsersService],

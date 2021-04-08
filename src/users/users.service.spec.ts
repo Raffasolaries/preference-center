@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { configService } from '../config/config.service';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
+import { Consent } from '../events/entities/event.entity';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -11,7 +12,7 @@ describe('UsersService', () => {
     const module: TestingModule = await Test.createTestingModule({
      imports: [
       TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
-      TypeOrmModule.forFeature([User])
+      TypeOrmModule.forFeature([User, Consent])
      ],
      providers: [UsersService],
     }).compile();

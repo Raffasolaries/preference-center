@@ -4,6 +4,7 @@ import { configService } from '../config/config.service';
 import { EventsController } from './events.controller';
 import { EventsService } from './events.service';
 import { User } from '../users/entities/user.entity';
+import { Consent } from './entities/event.entity';
 
 describe('EventsController', () => {
   let controller: EventsController;
@@ -12,7 +13,7 @@ describe('EventsController', () => {
     const module: TestingModule = await Test.createTestingModule({
      imports: [
       TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
-      TypeOrmModule.forFeature([User])
+      TypeOrmModule.forFeature([Consent, User])
      ],
      controllers: [EventsController],
      providers: [EventsService],

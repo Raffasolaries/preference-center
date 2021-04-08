@@ -22,12 +22,20 @@ export class EventDTO {
   return event;
  }
 
- // public static fromEntity(entity: Consent) {
- //  return this.from({
- //   user: entity.user,
- //   consents: entity.consents ? entity.consents : []
- //  });
- // }
+ public static fromEntities(entites: Consent[], userId) {
+  let updatedConsents = entites.map(entity => {
+   return {
+    id: entity.name,
+    enabled: entity.isActive
+   }
+  });
+  return {
+   user: {
+    id: userId
+   },
+   updatedConsents: updatedConsents
+  };
+ }
 
  public static toEntity(dto: Partial<EventDTO>) {
   const consents = [];

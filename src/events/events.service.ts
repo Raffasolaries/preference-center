@@ -37,7 +37,8 @@ export class EventsService {
    }
    const entities = EventDTO.toEntity(dto);
    // console.log('entities built', entities);
-   return await this.consentsRepo.save(entities);
+   return await this.consentsRepo.save(entities)
+    .then(e => EventDTO.fromEntities(e, dto.user.id));
   }
 
   // remove(id: number) {
