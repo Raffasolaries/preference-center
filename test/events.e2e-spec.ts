@@ -6,37 +6,38 @@ import { UsersModule } from './../src/users/users.module';
 import { EventsModule } from './../src/events/events.module';
 import { EventsService } from './../src/events/events.service';
 import { EventDTO } from './../src/events/dto/event.dto';
+import { ConsentType } from './../src/events/entities/event.entity';
 
 describe('Events (e2e)', () => {
  let app: INestApplication;
- let eventPayload = {
+ let eventPayload: EventDTO = {
   user: {
    id: 'placeholder'
   },
   consents: [
    {
-    id: 'email_notifications',
+    id: ConsentType.email_notifications,
     enabled: true
    },
    {
-    id: 'sms_notifications',
+    id: ConsentType.sms_notifications,
     enabled: true
    }
   ]
  };
  let eventsService = { 
-  update: (dto: EventDTO) => {
+  update: async (dto: EventDTO) => {
    return {
     user: {
      id: 'placeholder'
     },
     updatedConsents: [
      {
-      id: 'email_notifications',
+      id: ConsentType.email_notifications,
       enabled: true
      },
      {
-      id: 'sms_notifications',
+      id: ConsentType.sms_notifications,
       enabled: true
      }
     ]
@@ -58,17 +59,14 @@ describe('Events (e2e)', () => {
  });
 
  it('/events (POST)', async (done) => {
-  return await request(app.getHttpServer())
+  await request(app.getHttpServer())
    .post('/events')
    .send(eventPayload)
    .set('Accept', 'application/json')
    .expect('Content-Type', /json/)
    .expect(201)
-   .then(response => {
-    expect(response.body.user).toEqual(eventPayload.user);
-    expect(response.body.updatedConsents).toEqual(eventPayload.consents);
-    done();
-   }).catch(err => err);
+   .expect(await eventsService.update(eventPayload));
+  return done();
  });
 
  afterAll(async () => {

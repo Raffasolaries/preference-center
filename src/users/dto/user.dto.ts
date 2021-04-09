@@ -3,8 +3,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { IsEmail, IsNotEmpty, IsString, IsDefined, IsArray, ValidateNested, IsOptional, IsEnum, IsBoolean, IsUUID } from 'class-validator';
 import { Type } from 'class-transformer';
 import { User } from '../entities/user.entity';
-import { ConsentType, SimplifiedConsent, Consent } from '../../events/entities/event.entity';
-// mport { User } from '../decorators/user.decorator';
+import { Consent } from '../../events/entities/event.entity';
+import { ConsentDTO } from '../../events/dto/event.dto';
+
+export class SimplifiedUserDTO implements Readonly<SimplifiedUserDTO> {
+ @IsUUID()
+ @IsNotEmpty()
+ id: string;
+}
 
 export class UserDTO implements Readonly<UserDTO> {
  @ApiProperty({ required: false })
@@ -20,9 +26,9 @@ export class UserDTO implements Readonly<UserDTO> {
  @ApiProperty({ required: false })
  @IsArray()
  @ValidateNested({ each: true })
-	@Type(() => SimplifiedConsent)
+	@Type(() => ConsentDTO)
 	@IsOptional()
- consents?: SimplifiedConsent[];
+ consents?: ConsentDTO[];
 
  public static from(dto: Partial<UserDTO>) {
   const usr = new UserDTO();
@@ -60,6 +66,7 @@ export class UserDTO implements Readonly<UserDTO> {
   usr.createDateTime = new Date();
   usr.createdBy = usr.id ? usr.id : null;
   usr.lastChangedBy = usr.id ? usr.id : null;
+  // console.log('created user', usr);
   return usr;
  }
 

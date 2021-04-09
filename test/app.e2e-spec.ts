@@ -16,16 +16,12 @@ describe('AppController (e2e)', () => {
   await app.init();
  });
 
- it('/ (GET)', (done) => {
-  return request(app.getHttpServer())
+ it('/ (GET)', async (done) => {
+  await request(app.getHttpServer())
    .get('/')
    .expect(200)
-   .then(result => {
-     // expect(result.status).toEqual(200)
-     expect(result.text).toEqual('Hello World!');
-     done();
-   })
-   .catch(err => err)
+   .expect('Hello World!');
+  return done();
  });
 
  afterAll(async () => {

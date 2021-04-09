@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { EventDTO } from './dto/event.dto';
 
@@ -8,7 +8,10 @@ export class EventsController {
 
   @Post()
   async update(@Body() dto: EventDTO) {
-   return await this.eventsService.update(dto);
+   return await this.eventsService.update(dto)
+    .catch(err => {
+     throw new HttpException({ message: err.message }, HttpStatus.BAD_REQUEST);
+    });
   }
 
   // @Get()

@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserDTO } from './dto/user.dto';
+import { UserDTO, SimplifiedUserDTO } from './dto/user.dto';
 // import { UpdateUserDto } from './dto/update-user.dto';
 // import { User } from './decorators/user.decorator';
 import { Consent } from '../events/entities/event.entity';
@@ -18,12 +18,14 @@ export class UsersService {
   // console.log('dto passed into user service', dto);
   const entity = UserDTO.toEntity(dto);
   // console.log('dto entity service', entity);
-  return await this.usersRepo.save(entity).then(e => UserDTO.fromEntity(e));
+  return await this.usersRepo.save(entity)
+   .then(e => UserDTO.fromEntity(e))
+   // .catch(err => err);
  }
 
  public async findAll(): Promise<UserDTO[]> {
   return await this.usersRepo.find({ relations: ["consents"] })
-   .then(users => users.map(e => UserDTO.fromEntity(e)));
+   .then(users => users.map(e => UserDTO.fromEntity(e)))
    // return `This action returns all users`;
  }
 
@@ -37,6 +39,7 @@ export class UsersService {
  // }
 
  public async remove(id: string) {
-  return await this.usersRepo.delete(id);
+  return await this.usersRepo.delete(id)
+   .then(e => e);
  }
 }

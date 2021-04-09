@@ -5,36 +5,37 @@ import { AppModule } from './../src/app.module';
 import { UsersModule } from './../src/users/users.module';
 import { EventsModule } from './../src/events/events.module';
 import { UsersService } from './../src/users/users.service';
-import { UserDTO } from './../src/users/dto/user.dto';
+import { UserDTO, SimplifiedUserDTO } from './../src/users/dto/user.dto';
 
 describe('Users (e2e)', () => {
  let app: INestApplication;
  let userPayload = { email: 'raffasolaries@gmail.com' };
+ let userId = '97121a44-035d-421e-97f9-b27438109901';
  let deletedUser = { raw: [], affected: 1 };
  let usersService = { 
-  findAll: () => {
+  findAll: async () => {
    return [{
-    id: 'placeholder',
+    id: userId,
     email: 'raffasolaries@gmail.com',
     consents: []
    }];
   },
-  findOne: (id: string) => {
+  findOne: async (id: string) => {
    return {
-    id: 'placeholder',
+    id: userId,
     email: 'raffasolaries@gmail.com',
     consents: []
    };
   },
-  create: (dto: UserDTO) => {
+  create: async (dto: UserDTO) => {
    return {
-    id: 'placeholder',
+    id: userId,
     email: 'raffasolaries@gmail.com',
     consents: []
    };
   },
-  remove: (id: string) => {
-   return { raw: [], affected: 1 };
+  remove: async (id: string) => {
+   return deletedUser;
   }
  };
  
@@ -51,48 +52,39 @@ describe('Users (e2e)', () => {
   await app.init();
  });
 
- it('/users (POST)', async () => {
-  return await request(app.getHttpServer())
+ it('/users (POST)', async (done) => {
+  await request(app.getHttpServer())
    .post('/users')
    .send(userPayload)
    .set('Accept', 'application/json')
    .expect('Content-Type', /json/)
-   .expect(200)
-   .then(response => {
-    expect(response.body.email).toEqual(userPayload.email);
-   }).catch(err => err);
+   .expect(201)
+   .expect(await usersService.create(userPayload));
+  return done();
  });
 
  it('/users (GET)', async (done) => {
-  return await request(app.getHttpServer())
+  await request(app.getHttpServer())
    .get('/users')
    .expect(200)
-   .then(response => {
-    expect(response.body[0].email).toEqual(userPayload.email);
-    done();
-   }).catch(err => err);
+   .expect(await usersService.findAll());
+  return done();
  });
 
  it('/users/{id} (GET)', async (done) => {
-  return await request(app.getHttpServer())
+  await request(app.getHttpServer())
    .get('/users/placeholder')
    .expect(200)
-   .then(response => {
-    expect(response.body.email).toEqual(userPayload.email);
-    done()
-   })
-   .catch(err => err)
+   .expect(await usersService.findOne(userId));
+  return done();
  });
 
  it('/users/{id} (DELETE)', async (done) => {
-  return await request(app.getHttpServer())
+  await request(app.getHttpServer())
    .delete('/users/placeholder')
    .expect(200)
-   .then(response => {
-    expect(response.body).toEqual(deletedUser);
-    done()
-   })
-   .catch(err => err)
+   .expect(await usersService.remove(userId));
+  return done();
  });
 
  afterAll(async () => {

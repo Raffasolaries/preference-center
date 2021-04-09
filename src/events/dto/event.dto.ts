@@ -1,19 +1,28 @@
 import { IsEmail, IsNotEmpty, IsString, IsDefined, IsArray, ValidateNested, IsOptional, IsEnum, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
-import { Consent, SimplifiedConsent } from '../entities/event.entity';
-import { UserDTO } from '../../users/dto/user.dto';
-import { User } from '../../users/entities/user.entity';
+import { Consent, ConsentType } from '../entities/event.entity';
+import { UserDTO, SimplifiedUserDTO } from '../../users/dto/user.dto';
 
-export class EventDTO {
+export class ConsentDTO implements Readonly<ConsentDTO> {
+ @IsDefined()
+ @IsEnum(ConsentType)
+ id: ConsentType;
+
+ @IsDefined()
+ @IsBoolean()
+ enabled: boolean;
+}
+
+export class EventDTO implements Readonly<EventDTO> {
  @IsDefined()
  @ValidateNested({ each: true })
-	@Type(() => UserDTO)
- user: UserDTO;
+	@Type(() => SimplifiedUserDTO)
+ user: SimplifiedUserDTO;
 
  @ValidateNested({ each: true })
-	@Type(() => SimplifiedConsent)
+	@Type(() => ConsentDTO)
 	@IsOptional()
- consents: SimplifiedConsent[];
+ consents: ConsentDTO[];
 
  public static from(dto: Partial<EventDTO>) {
   const event = new EventDTO();

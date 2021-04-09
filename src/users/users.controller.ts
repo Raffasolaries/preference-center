@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus, UseFilters } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UserDTO } from './dto/user.dto';
+import { UserDTO, SimplifiedUserDTO } from './dto/user.dto';
+import { AllExceptionsFilter } from '../filters/all-exceptions.filter';
 //import { User } from './decorators/user.decorator';
 //import { User } from './entities/user.entity';
 
@@ -9,19 +10,29 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  // @UseFilters(AllExceptionsFilter)
   async create(@Body() dto: UserDTO): Promise<UserDTO> {
    // console.log(typeof dto.toEntity());
-   return this.usersService.create(dto);
+   return await this.usersService.create(dto)
+    .catch(err => {
+     throw new HttpException({ message: err.message }, HttpStatus.BAD_REQUEST);
+    });
   }
 
   @Get()
   async findAll(): Promise<UserDTO[]> {
-   return await this.usersService.findAll();
+   return await this.usersService.findAll()
+    .catch(err => {
+     throw new HttpException({ message: err.message }, HttpStatus.BAD_REQUEST);
+    });
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<UserDTO> {
-   return await this.usersService.findOne(id);
+   return await this.usersService.findOne(id)
+    .catch(err => {
+     throw new HttpException({ message: err.message }, HttpStatus.BAD_REQUEST);
+    });
   }
 
   // @Patch(':id')
@@ -31,6 +42,9 @@ export class UsersController {
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-   return await this.usersService.remove(id);
+   return await this.usersService.remove(id)
+    .catch(err => {
+     throw new HttpException({ message: err.message }, HttpStatus.BAD_REQUEST);
+    });
   }
 }
